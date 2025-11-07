@@ -1,7 +1,7 @@
 package raulalvesre.testemeli.infrastructure.api.mapper
 
 import raulalvesre.testemeli.application.usecase.dto.ProductFilter
-import raulalvesre.testemeli.domain.enums.ProductCondition
+import raulalvesre.testemeli.infrastructure.api.helper.parseProductCondition
 import raulalvesre.testemeli.infrastructure.api.request.ProductFilterRequest
 
 object ProductFilterMapper {
@@ -12,7 +12,7 @@ object ProductFilterMapper {
             brand = this.brand,
             condition =
                 this.condition?.let {
-                    ProductCondition.valueOf(it.uppercase())
+                    parseProductCondition(it.uppercase())
                 },
             minPrice = this.minPrice,
             maxPrice = this.maxPrice,

@@ -34,9 +34,9 @@ class ProductController(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
         @RequestParam(required = false, name = "sortBy")
-        sortBy: List<String>?,
+        sortBy: List<String> = emptyList(),
         @RequestParam(required = false, name = "direction")
-        directions: List<String>?,
+        directions: List<String> = emptyList(),
     ): ResponseEntity<Page<ProductResponse>> {
         val sortOrders = buildSortOrders(sortBy, directions)
 

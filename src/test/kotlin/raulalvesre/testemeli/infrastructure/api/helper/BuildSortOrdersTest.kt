@@ -1,6 +1,7 @@
 package raulalvesre.testemeli.infrastructure.api.helper
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import raulalvesre.testemeli.application.usecase.dto.SortOrder
 import raulalvesre.testemeli.domain.enums.ProductSortField
@@ -64,5 +65,25 @@ class BuildSortOrdersTest {
             SortOrder(ProductSortField.PRICE, SortDirection.DESC),
             SortOrder(ProductSortField.RATING, SortDirection.ASC),
         )
+    }
+
+    @Test
+    fun `should throw IllegalArgumentException on invalid sortBy`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            buildSortOrders(
+                sortBy = listOf("the strokes"),
+                directions = listOf(SortDirection.DESC.name),
+            )
+        }
+    }
+
+    @Test
+    fun `should throw IllegalArgumentException on invalid direction`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            buildSortOrders(
+                sortBy = listOf(ProductSortField.PRICE.name),
+                directions = listOf("nao sou valido"),
+            )
+        }
     }
 }
