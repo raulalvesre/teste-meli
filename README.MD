@@ -116,7 +116,6 @@ A ordenação é feita usando dois arrays paralelos:
 **Regras:**
 
 - Caso`sortBy` tenha mais elementos do que `direction`, os campos excedentes em sortBy serão ordenados com direção padrão ASC.
-- Caso `sortBy` seja maior `direction`, as "directions" do sortBy sobrantes vai ser ASC.
 
 **Exemplo:**
 
