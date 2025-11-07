@@ -1,0 +1,442 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15",
+    "description": "Apple iPhone 15 with 128GB storage and A16 Bionic chip.",
+    "price": 5999.90,
+    "brand": "Apple",
+    "imageUrl": "https://example.com/images/iphone-15.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "128GB",
+      "color": "Black",
+      "screenSize": "6.1\"",
+      "battery": "3279mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.8,
+    "totalReviews": 245,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S24",
+    "description": "Samsung Galaxy S24 with AMOLED display and 256GB storage.",
+    "price": 4799.50,
+    "brand": "Samsung",
+    "imageUrl": "https://example.com/images/galaxy-s24.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "256GB",
+      "color": "Silver",
+      "screenSize": "6.2\"",
+      "battery": "4000mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.6,
+    "totalReviews": 182,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 3,
+    "name": "MacBook Air 13 M2",
+    "description": "Apple MacBook Air 13\" with M2 chip, 8GB RAM, 256GB SSD.",
+    "price": 8999.00,
+    "brand": "Apple",
+    "imageUrl": "https://example.com/images/macbook-air-m2.png",
+    "category": "laptops",
+    "specifications": {
+      "processor": "Apple M2",
+      "ram": "8GB",
+      "storage": "256GB SSD",
+      "screenSize": "13.6\""
+    },
+    "condition": "NEW",
+    "rating": 4.9,
+    "totalReviews": 321,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 4,
+    "name": "Dell Inspiron 15",
+    "description": "Dell Inspiron 15\" laptop with Intel i5, 8GB RAM, 512GB SSD.",
+    "price": 4299.99,
+    "brand": "Dell",
+    "imageUrl": "https://example.com/images/dell-inspiron-15.png",
+    "category": "laptops",
+    "specifications": {
+      "processor": "Intel Core i5",
+      "ram": "8GB",
+      "storage": "512GB SSD",
+      "screenSize": "15.6\""
+    },
+    "condition": "USED",
+    "rating": 4.2,
+    "totalReviews": 97,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 5,
+    "name": "Sony WH-1000XM5",
+    "description": "Sony wireless noise-cancelling over-ear headphones.",
+    "price": 1899.00,
+    "brand": "Sony",
+    "imageUrl": "https://example.com/images/sony-wh-1000xm5.png",
+    "category": "headphones",
+    "specifications": {
+      "type": "Over-ear",
+      "connection": "Bluetooth",
+      "noiseCancelling": "Yes",
+      "batteryLife": "30h"
+    },
+    "condition": "NEW",
+    "rating": 4.7,
+    "totalReviews": 410,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 6,
+    "name": "Logitech MX Master 3S",
+    "description": "Logitech wireless ergonomic mouse with fast scrolling.",
+    "price": 499.90,
+    "brand": "Logitech",
+    "imageUrl": "https://example.com/images/logitech-mx-master-3s.png",
+    "category": "accessories",
+    "specifications": {
+      "connection": "Bluetooth/USB Receiver",
+      "battery": "Rechargeable",
+      "dpi": "8000",
+      "hand": "Right"
+    },
+    "condition": "NEW",
+    "rating": 4.5,
+    "totalReviews": 210,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 7,
+    "name": "Kindle Paperwhite 11th Gen",
+    "description": "Amazon Kindle Paperwhite with 6.8\" display and adjustable warm light.",
+    "price": 749.00,
+    "brand": "Amazon",
+    "imageUrl": "https://example.com/images/kindle-paperwhite.png",
+    "category": "ereaders",
+    "specifications": {
+      "storage": "8GB",
+      "screenSize": "6.8\"",
+      "waterproof": "IPX8",
+      "backlight": "Adjustable warm light"
+    },
+    "condition": "REFURBISHED",
+    "rating": 4.3,
+    "totalReviews": 65,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 8,
+    "name": "Nintendo Switch OLED",
+    "description": "Nintendo Switch OLED model with 7\" OLED screen.",
+    "price": 2599.00,
+    "brand": "Nintendo",
+    "imageUrl": "https://example.com/images/nintendo-switch-oled.png",
+    "category": "consoles",
+    "specifications": {
+      "storage": "64GB",
+      "screenSize": "7\" OLED",
+      "dockIncluded": "Yes",
+      "controllers": "Joy-Con"
+    },
+    "condition": "NEW",
+    "rating": 4.8,
+    "totalReviews": 510,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 9,
+    "name": "LG 55\" 4K Smart TV",
+    "description": "LG 55-inch 4K UHD Smart TV with HDR and webOS.",
+    "price": 3299.99,
+    "brand": "LG",
+    "imageUrl": "https://example.com/images/lg-55-4k-tv.png",
+    "category": "tvs",
+    "specifications": {
+      "screenSize": "55\"",
+      "resolution": "4K",
+      "hdr": "HDR10",
+      "os": "webOS"
+    },
+    "condition": "OPEN_BOX",
+    "rating": 4.1,
+    "totalReviews": 33,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 10,
+    "name": "Bluetooth Speaker Mini",
+    "description": "Portable Bluetooth speaker with 10h battery life.",
+    "price": 199.90,
+    "brand": "JBL",
+    "imageUrl": "https://example.com/images/jbl-mini-speaker.png",
+    "category": "speakers",
+    "specifications": {
+      "power": "10W",
+      "batteryLife": "10h",
+      "waterproof": "IPX7",
+      "connection": "Bluetooth"
+    },
+    "condition": "NEW",
+    "rating": null,
+    "totalReviews": 0,
+    "hasFreeShipping": false,
+    "isAvailable": false
+  },
+  {
+    "id": 11,
+    "name": "iPhone 15 Pro",
+    "description": "Apple iPhone 15 Pro with 256GB storage and A17 Pro chip.",
+    "price": 7999.90,
+    "brand": "Apple",
+    "imageUrl": "https://example.com/images/iphone-15-pro.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "256GB",
+      "color": "Blue Titanium",
+      "screenSize": "6.1\"",
+      "battery": "3274mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.9,
+    "totalReviews": 520,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 12,
+    "name": "iPhone 15 Plus",
+    "description": "Apple iPhone 15 Plus with 128GB storage and A16 Bionic chip.",
+    "price": 6799.00,
+    "brand": "Apple",
+    "imageUrl": "https://example.com/images/iphone-15-plus.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "128GB",
+      "color": "Pink",
+      "screenSize": "6.7\"",
+      "battery": "4383mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.7,
+    "totalReviews": 190,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 13,
+    "name": "iPhone 14",
+    "description": "Apple iPhone 14 with 128GB storage and A15 Bionic chip.",
+    "price": 4799.90,
+    "brand": "Apple",
+    "imageUrl": "https://example.com/images/iphone-14.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "128GB",
+      "color": "Midnight",
+      "screenSize": "6.1\"",
+      "battery": "3279mAh"
+    },
+    "condition": "REFURBISHED",
+    "rating": 4.5,
+    "totalReviews": 305,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 14,
+    "name": "Samsung Galaxy S24 Ultra",
+    "description": "Samsung Galaxy S24 Ultra with 512GB storage and quad camera.",
+    "price": 8299.00,
+    "brand": "Samsung",
+    "imageUrl": "https://example.com/images/galaxy-s24-ultra.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "512GB",
+      "color": "Phantom Black",
+      "screenSize": "6.8\"",
+      "battery": "5000mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.9,
+    "totalReviews": 410,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 15,
+    "name": "Samsung Galaxy A55",
+    "description": "Samsung Galaxy A55 with 128GB storage and Super AMOLED display.",
+    "price": 2299.90,
+    "brand": "Samsung",
+    "imageUrl": "https://example.com/images/galaxy-a55.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "128GB",
+      "color": "Awesome Navy",
+      "screenSize": "6.4\"",
+      "battery": "5000mAh"
+    },
+    "condition": "NEW",
+    "rating": 4.4,
+    "totalReviews": 150,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 16,
+    "name": "Samsung Galaxy S23 FE",
+    "description": "Samsung Galaxy S23 FE with 256GB storage and triple camera.",
+    "price": 2999.00,
+    "brand": "Samsung",
+    "imageUrl": "https://example.com/images/galaxy-s23-fe.png",
+    "category": "phones",
+    "specifications": {
+      "storage": "256GB",
+      "color": "Mint",
+      "screenSize": "6.4\"",
+      "battery": "4500mAh"
+    },
+    "condition": "OPEN_BOX",
+    "rating": 4.3,
+    "totalReviews": 88,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 17,
+    "name": "Brastemp 14 Place Settings Dishwasher",
+    "description": "Brastemp stainless steel dishwasher with 8 washing cycles.",
+    "price": 2999.90,
+    "brand": "Brastemp",
+    "imageUrl": "https://example.com/images/brastemp-dishwasher-14.png",
+    "category": "dishwashers",
+    "specifications": {
+      "capacity": "14 place settings",
+      "color": "Stainless Steel",
+      "energyClass": "A",
+      "programs": "8 cycles"
+    },
+    "condition": "NEW",
+    "rating": 4.6,
+    "totalReviews": 220,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 18,
+    "name": "Electrolux Compact Dishwasher 8 Services",
+    "description": "Electrolux compact dishwasher ideal for small kitchens.",
+    "price": 1899.00,
+    "brand": "Electrolux",
+    "imageUrl": "https://example.com/images/electrolux-dishwasher-8.png",
+    "category": "dishwashers",
+    "specifications": {
+      "capacity": "8 place settings",
+      "color": "White",
+      "energyClass": "A",
+      "programs": "6 cycles"
+    },
+    "condition": "NEW",
+    "rating": 4.2,
+    "totalReviews": 95,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 19,
+    "name": "Samsung DishWasher 15 Place Settings",
+    "description": "Samsung dishwasher with digital inverter motor and auto-open door.",
+    "price": 3499.00,
+    "brand": "Samsung",
+    "imageUrl": "https://example.com/images/samsung-dishwasher-15.png",
+    "category": "dishwashers",
+    "specifications": {
+      "capacity": "15 place settings",
+      "color": "Graphite",
+      "energyClass": "A++",
+      "programs": "7 cycles"
+    },
+    "condition": "NEW",
+    "rating": 4.7,
+    "totalReviews": 60,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 20,
+    "name": "Canon EOS R50 Mirrorless Camera",
+    "description": "Canon EOS R50 mirrorless camera with 24.2MP sensor and 4K video.",
+    "price": 5299.00,
+    "brand": "Canon",
+    "imageUrl": "https://example.com/images/canon-eos-r50.png",
+    "category": "cameras",
+    "specifications": {
+      "type": "Mirrorless",
+      "resolution": "24.2MP",
+      "video": "4K 30p",
+      "lensMount": "RF"
+    },
+    "condition": "NEW",
+    "rating": 4.8,
+    "totalReviews": 72,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  },
+  {
+    "id": 21,
+    "name": "Sony Alpha a6400",
+    "description": "Sony Alpha a6400 mirrorless camera with 24.2MP APS-C sensor.",
+    "price": 5999.90,
+    "brand": "Sony",
+    "imageUrl": "https://example.com/images/sony-a6400.png",
+    "category": "cameras",
+    "specifications": {
+      "type": "Mirrorless",
+      "resolution": "24.2MP",
+      "video": "4K 30p",
+      "lensMount": "E-mount"
+    },
+    "condition": "USED",
+    "rating": 4.5,
+    "totalReviews": 130,
+    "hasFreeShipping": false,
+    "isAvailable": true
+  },
+  {
+    "id": 22,
+    "name": "GoPro HERO12 Black",
+    "description": "GoPro HERO12 Black action camera with stabilization and 5.3K video.",
+    "price": 2899.00,
+    "brand": "GoPro",
+    "imageUrl": "https://example.com/images/gopro-hero12.png",
+    "category": "cameras",
+    "specifications": {
+      "type": "Action Camera",
+      "resolution": "27MP",
+      "video": "5.3K 60p",
+      "waterproof": "10m"
+    },
+    "condition": "NEW",
+    "rating": 4.7,
+    "totalReviews": 260,
+    "hasFreeShipping": true,
+    "isAvailable": true
+  }
+]
