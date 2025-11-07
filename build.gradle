@@ -32,6 +32,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation "io.mockk:mockk:${mockkVersion}"
     implementation "org.jetbrains.kotlin:kotlin-test:1.9.25"
+    implementation('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14')
 }
 
 kotlin {

@@ -1,5 +1,9 @@
 package raulalvesre.testemeli.infrastructure.api.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,6 +24,8 @@ import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
 class ProductController(
     private val productService: ProductService,
 ) {
+
+    @Operation(summary = "Buscar produto por ID")
     @GetMapping("/{productId}")
     fun findById(
         @PathVariable productId: Long,
@@ -28,9 +34,19 @@ class ProductController(
         return ResponseEntity.ok(product.toResponsePage())
     }
 
+    @Operation(
+        summary = "Buscar produtos paginados",
+        description = "Retorna uma lista paginada de produtos com filtros"
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
+            ApiResponse(responseCode = "400", description = "Parâmetros inválidos")
+        ]
+    )
     @GetMapping
     fun findPage(
-        filter: ProductFilterRequest,
+        @ParameterObject filter: ProductFilterRequest,
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
         @RequestParam(required = false, name = "sortBy")
