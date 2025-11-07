@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import raulalvesre.testemeli.application.usecase.ProductService
 import raulalvesre.testemeli.application.usecase.dto.Page
-import raulalvesre.testemeli.application.usecase.dto.ProductFilter
 import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
-import raulalvesre.testemeli.domain.enums.ProductSortField
-import raulalvesre.testemeli.domain.enums.SortDirection
 import raulalvesre.testemeli.infrastructure.api.helper.buildSortOrders
+import raulalvesre.testemeli.infrastructure.api.mapper.ProductFilterMapper.toApplicationFilter
 import raulalvesre.testemeli.infrastructure.api.mapper.toResponsePage
+import raulalvesre.testemeli.infrastructure.api.request.ProductFilterRequest
 import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
 
 @RestController
@@ -31,19 +30,19 @@ class ProductController(
 
     @GetMapping
     fun findPage(
-        filter: ProductFilter,
+        filter: ProductFilterRequest,
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
         @RequestParam(required = false, name = "sortBy")
-        sortBy: List<ProductSortField>?,
+        sortBy: List<String>?,
         @RequestParam(required = false, name = "direction")
-        directions: List<SortDirection>?,
+        directions: List<String>?,
     ): ResponseEntity<Page<ProductResponse>> {
         val sortOrders = buildSortOrders(sortBy, directions)
 
         val query =
             ProductSearchQuery(
-                filter = filter,
+                filter = filter.toApplicationFilter(),
                 page = page,
                 size = size,
                 sortOrders = sortOrders,

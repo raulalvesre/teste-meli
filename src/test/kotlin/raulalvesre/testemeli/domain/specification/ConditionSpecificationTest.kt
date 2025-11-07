@@ -1,6 +1,8 @@
 package raulalvesre.testemeli.domain.specification
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import raulalvesre.testemeli.domain.enums.ProductCondition
 import raulalvesre.testemeli.domain.specification.ProductTestFixtures.buildProduct

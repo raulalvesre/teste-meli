@@ -5,18 +5,18 @@ import raulalvesre.testemeli.domain.enums.ProductSortField
 import raulalvesre.testemeli.domain.enums.SortDirection
 
 fun buildSortOrders(
-    sortBy: List<ProductSortField>?,
-    directions: List<SortDirection>?,
+    sortBy: List<String>?,
+    directions: List<String>?,
 ): List<SortOrder> {
     if (sortBy.isNullOrEmpty()) {
         return emptyList()
     }
 
     return sortBy.mapIndexed { index, field ->
-        val direction = directions?.getOrNull(index) ?: SortDirection.ASC
+        val direction = directions?.getOrNull(index) ?: "ASC"
         SortOrder(
-            field = field,
-            direction = direction,
+            field = ProductSortField.valueOf(field.uppercase()),
+            direction = SortDirection.valueOf(direction.uppercase()),
         )
     }
 }

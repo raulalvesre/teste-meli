@@ -17,16 +17,16 @@ class BuildSortOrdersTest {
     fun `buildSortOrders should map fields and directions when both lists are aligned`() {
         val sortBy =
             listOf(
-                ProductSortField.PRICE,
-                ProductSortField.RATING,
-                ProductSortField.NAME,
+                ProductSortField.PRICE.name,
+                ProductSortField.RATING.name,
+                ProductSortField.NAME.name,
             )
 
         val directions =
             listOf(
-                SortDirection.DESC,
-                SortDirection.ASC,
-                SortDirection.DESC,
+                SortDirection.DESC.name,
+                SortDirection.ASC.name,
+                SortDirection.DESC.name,
             )
 
         val result = buildSortOrders(sortBy, directions)
@@ -42,7 +42,7 @@ class BuildSortOrdersTest {
     fun `should build orders with default ASC when directions is null`() {
         val orders =
             buildSortOrders(
-                sortBy = listOf(ProductSortField.PRICE, ProductSortField.RATING),
+                sortBy = listOf(ProductSortField.PRICE.name, ProductSortField.RATING.name),
                 directions = null,
             )
 
@@ -56,8 +56,8 @@ class BuildSortOrdersTest {
     fun `should use matching directions and default ASC for missing ones`() {
         val orders =
             buildSortOrders(
-                sortBy = listOf(ProductSortField.PRICE, ProductSortField.RATING),
-                directions = listOf(SortDirection.DESC),
+                sortBy = listOf(ProductSortField.PRICE.name, ProductSortField.RATING.name),
+                directions = listOf(SortDirection.DESC.name),
             )
 
         assertThat(orders).containsExactly(
