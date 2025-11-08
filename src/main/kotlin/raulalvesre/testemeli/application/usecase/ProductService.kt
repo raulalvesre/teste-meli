@@ -20,7 +20,7 @@ class ProductService(
             logger.info("c=ProductService m=findById s=START productId=$productId")
             return productRepository.findById(productId)
                 ?: throw ProductNotFoundException(productId)
-        } catch (e: ProductNotFoundException) {
+        } catch (e: Exception) {
             logger.error("c=ProductService m=findById s=ERROR productId=$productId message=${e.message}")
             throw e
         }
