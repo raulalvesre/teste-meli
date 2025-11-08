@@ -216,3 +216,6 @@ Após subir, a API estará disponível em `http://localhost:8080`.
 
 Recomendo utilizar o swagger para explorar e interagir com a API:
 http://localhost:8080/swagger-ui/index.html
+
+
+### Prompts

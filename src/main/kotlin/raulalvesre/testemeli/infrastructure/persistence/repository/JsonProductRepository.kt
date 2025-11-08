@@ -1,5 +1,6 @@
 package raulalvesre.testemeli.infrastructure.persistence.repository
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
 import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.application.usecase.dto.ProductFilter
@@ -23,35 +24,50 @@ import raulalvesre.testemeli.domain.specification.Specification
 class JsonProductRepository(
     private val products: List<Product> = emptyList(),
 ) : ProductRepository {
+
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
     override fun findById(id: Long): Product? {
-        return products.firstOrNull { it.id == id }
+        try {
+            logger.info("c=JsonProductRepository m=findById s=START")
+            return products.firstOrNull { it.id == id }
+        } catch (e: Exception) {
+            logger.error("c=JsonProductRepository m=findById s=ERROR message=${e.message}", e)
+            throw e
+        }
     }
 
     override fun findPage(productSearchQuery: ProductSearchQuery): Page<Product> {
-        val specification = productSearchQuery.filter.toSpecification()
+        try {
+            logger.info("c=JsonProductRepository m=findPage s=START")
+            val specification = productSearchQuery.filter.toSpecification()
 
-        val filteredProducts = products.filter { specification.isSatisfiedBy(it) }
-        val sortedFilteredProducts = applySorting(filteredProducts, productSearchQuery.sortOrders)
+            val filteredProducts = products.filter { specification.isSatisfiedBy(it) }
+            val sortedFilteredProducts = applySorting(filteredProducts, productSearchQuery.sortOrders)
 
-        val totalItems = sortedFilteredProducts.size
-        val page = productSearchQuery.page
-        val size = productSearchQuery.size
+            val totalItems = sortedFilteredProducts.size
+            val page = productSearchQuery.page
+            val size = productSearchQuery.size
 
-        val fromIndex = (page * size).coerceAtMost(totalItems)
-        val toIndex = (fromIndex + size).coerceAtMost(totalItems)
-        val pageItems =
-            if (fromIndex <= toIndex) {
-                sortedFilteredProducts.subList(fromIndex, toIndex)
-            } else {
-                emptyList()
-            }
+            val fromIndex = (page * size).coerceAtMost(totalItems)
+            val toIndex = (fromIndex + size).coerceAtMost(totalItems)
+            val pageItems =
+                if (fromIndex <= toIndex) {
+                    sortedFilteredProducts.subList(fromIndex, toIndex)
+                } else {
+                    emptyList()
+                }
 
-        return Page(
-            items = pageItems,
-            page = page,
-            size = size,
-            totalItems = totalItems,
-        )
+            return Page(
+                items = pageItems,
+                page = page,
+                size = size,
+                totalItems = totalItems,
+            )
+        } catch (e: Exception) {
+            logger.error("c=JsonProductRepository m=findPage s=ERROR message=${e.message}", e)
+            throw e
+        }
     }
 
     private fun applySorting(

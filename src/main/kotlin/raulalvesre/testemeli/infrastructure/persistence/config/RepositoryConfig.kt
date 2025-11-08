@@ -14,15 +14,19 @@ class RepositoryConfig(
 ) {
     @Bean
     fun productRepository(): ProductRepository {
-        val inputStream =
-            javaClass.getResourceAsStream("/data/products.json")
-                ?: throw IllegalStateException("products.json not found on classpath")
+        try {
+            val inputStream =
+                javaClass.getResourceAsStream("/data/products.json")
+                    ?: throw IllegalStateException("products.json not found on classpath")
 
-        val products: List<Product> =
-            inputStream.use {
-                objectMapper.readValue(it, object : TypeReference<List<Product>>() {})
-            }
+            val products: List<Product> =
+                inputStream.use {
+                    objectMapper.readValue(it, object : TypeReference<List<Product>>() {})
+                }
 
-        return JsonProductRepository(products)
+            return JsonProductRepository(products)
+        } catch (e: Exception) {
+            throw IllegalStateException("Failed to initialize product repository", e)
+        }
     }
 }
