@@ -1,6 +1,9 @@
 package raulalvesre.testemeli.infrastructure.api.controller
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springdoc.core.annotations.ParameterObject
@@ -72,8 +75,30 @@ class ProductController(
         page: Int,
         @RequestParam(defaultValue = "10")
         size: Int,
+
+        @Parameter(
+            description = "Sort field",
+            array = ArraySchema(
+                schema = Schema(
+                    type = "string",
+                    allowableValues = ["name", "price", "rating", "brand"],
+                    example = "name"
+                )
+            )
+        )
         @RequestParam(required = false, name = "sortBy")
         sortBy: List<String> = emptyList(),
+
+        @Parameter(
+            description = "Sort direction",
+            array = ArraySchema (
+                schema = Schema(
+                    type = "string",
+                    allowableValues = ["asc", "desc"],
+                    example = "desc"
+                )
+            )
+        )
         @RequestParam(required = false, name = "direction")
         directions: List<String> = emptyList(),
     ): ResponseEntity<Page<ProductSummaryResponse>> {
