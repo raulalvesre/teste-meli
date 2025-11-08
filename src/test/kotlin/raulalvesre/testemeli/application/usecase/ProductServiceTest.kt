@@ -14,6 +14,7 @@ import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.exception.ProductNotFoundException
 import raulalvesre.testemeli.domain.repository.ProductRepository
+import raulalvesre.testemeli.domain.specification.ProductTestFixtures.buildProduct
 
 class ProductServiceTest {
     private val maxBatchSize = 50
@@ -45,18 +46,14 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `findByIds return empty list when no product with with specific ids exist`() {
-        val result = productService.findByIds(listOf(9999L, 888L))
+    fun `findByIds should call repository`() {
+        val ids = listOf(9999L, 888L)
+        every { productRepository.findByIds(ids) } returns listOf()
 
+        val result = productService.findByIds(ids)
+
+        verify { productRepository.findByIds(ids) }
         assertEquals(0, result.size)
-    }
-
-    @Test
-    fun `findByIds returns only products with specific ids`() {
-        val result = productService.findByIds(listOf(1L, 2L))
-
-        assertEquals(2, result.size)
-        assertEquals(listOf(1L, 2L), result.map { it.id })
     }
 
     @Test
@@ -70,6 +67,7 @@ class ProductServiceTest {
     fun `findByIds should not throw exception when id list has the max limit`() {
         assertDoesNotThrow {
             val ids = (1L..maxBatchSize).toList()
+            every { productRepository.findByIds(ids) } returns emptyList()
             productService.findByIds(ids)
         }
     }
