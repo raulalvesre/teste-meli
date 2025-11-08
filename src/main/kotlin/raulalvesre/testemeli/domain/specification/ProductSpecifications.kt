@@ -16,6 +16,14 @@ class CategorySpecification(private val category: String?) : Specification<Produ
     override fun isSatisfiedBy(item: Product): Boolean = category == null || item.category.contains(category.trim(), ignoreCase = true)
 }
 
+class SpecificationSpecifications(private val requiredSpecs: Map<String, String>) : Specification<Product> {
+    override fun isSatisfiedBy(item: Product): Boolean {
+        return requiredSpecs.all { (key, expectedValue) ->
+            item.specifications[key]?.contains(expectedValue, ignoreCase = true) ?: false
+        }
+    }
+}
+
 class ConditionSpecification(private val condition: ProductCondition?) : Specification<Product> {
     override fun isSatisfiedBy(item: Product): Boolean = condition == null || item.condition == condition
 }

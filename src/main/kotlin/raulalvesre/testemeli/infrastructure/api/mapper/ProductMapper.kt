@@ -2,10 +2,11 @@ package raulalvesre.testemeli.infrastructure.api.mapper
 
 import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.domain.entity.Product
-import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
+import raulalvesre.testemeli.infrastructure.api.response.ProductDetailResponse
+import raulalvesre.testemeli.infrastructure.api.response.ProductSummaryResponse
 
-fun Product.toResponse(): ProductResponse {
-    return ProductResponse(
+fun Product.toDetailResponse(): ProductDetailResponse {
+    return ProductDetailResponse(
         id = id,
         title = name,
         description = description,
@@ -22,13 +23,27 @@ fun Product.toResponse(): ProductResponse {
     )
 }
 
-fun List<Product>.toResponseList(): List<ProductResponse> {
-    return this.map { it.toResponse() }
+fun Product.toSummaryResponse(): ProductSummaryResponse {
+    return ProductSummaryResponse(
+        id = id,
+        title = name,
+        price = price,
+        imageUrl = imageUrl,
+        condition = condition,
+        rating = rating,
+        totalReviews = totalReviews,
+        hasFreeShipping = hasFreeShipping,
+        isAvailable = isAvailable,
+    )
 }
 
-fun Page<Product>.toResponse(): Page<ProductResponse> {
+fun List<Product>.toDetailResponseList(): List<ProductDetailResponse> {
+    return this.map { it.toDetailResponse() }
+}
+
+fun Page<Product>.toSummaryResponsePage(): Page<ProductSummaryResponse> {
     return Page(
-        items = items.map { it.toResponse() },
+        items = items.map { it.toSummaryResponse() },
         page = page,
         size = size,
         totalItems = totalItems,

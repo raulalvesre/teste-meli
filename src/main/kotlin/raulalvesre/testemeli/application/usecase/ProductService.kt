@@ -40,7 +40,7 @@ class ProductService(
             }
 
             if (ids.size > batchMaxProducts) {
-                throw IllegalArgumentException("Cannot compare more than $batchMaxProducts products. Requested: ${ids.size}")
+                throw IllegalArgumentException("Cannot return more than $batchMaxProducts products. Requested: ${ids.size}")
             }
 
             val products = productRepository.findByIds(ids)

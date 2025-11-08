@@ -15,40 +15,41 @@ import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.infrastructure.api.helper.buildSortOrders
 import raulalvesre.testemeli.infrastructure.api.mapper.ProductFilterMapper.toApplicationFilter
-import raulalvesre.testemeli.infrastructure.api.mapper.toResponse
-import raulalvesre.testemeli.infrastructure.api.mapper.toResponseList
+import raulalvesre.testemeli.infrastructure.api.mapper.toDetailResponse
+import raulalvesre.testemeli.infrastructure.api.mapper.toDetailResponseList
+import raulalvesre.testemeli.infrastructure.api.mapper.toSummaryResponsePage
 import raulalvesre.testemeli.infrastructure.api.request.ProductFilterRequest
-import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
+import raulalvesre.testemeli.infrastructure.api.response.ProductDetailResponse
+import raulalvesre.testemeli.infrastructure.api.response.ProductSummaryResponse
 
 @RestController
 @RequestMapping("/v1/products")
 class ProductController(
-    private val productService: ProductService
+    private val productService: ProductService,
 ) {
-
     @Operation(summary = "Buscar produto por ID")
     @GetMapping("/{id}")
     fun findById(
         @PathVariable id: Long,
-    ): ResponseEntity<ProductResponse> {
+    ): ResponseEntity<ProductDetailResponse> {
         val product = productService.findById(id)
-        return ResponseEntity.ok(product.toResponse())
+        return ResponseEntity.ok(product.toDetailResponse())
     }
 
     @Operation(
         summary = "Buscar produtos por IDs",
-        description = "Permite buscar produtos em lote informando uma lista de IDs (máx. 50 por requisição)."
+        description = "Permite buscar produtos em lote informando uma lista de IDs (máx. 50 por requisição).",
     )
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
-            ApiResponse(responseCode = "400", description = "Requisição inválida (lista de IDs ultrapassa o limite de 50).")
+            ApiResponse(responseCode = "400", description = "Requisição inválida (lista de IDs ultrapassa o limite de 50)."),
         ],
     )
     @GetMapping("/batch")
-    fun findByIds(ids: List<Long>): ResponseEntity<List<ProductResponse>> {
+    fun findByIds(ids: List<Long>): ResponseEntity<List<ProductDetailResponse>> {
         val result = productService.findByIds(ids)
-        val responsePage = result.toResponseList()
+        val responsePage = result.toDetailResponseList()
         return ResponseEntity.ok(responsePage)
     }
 
@@ -71,7 +72,7 @@ class ProductController(
         sortBy: List<String> = emptyList(),
         @RequestParam(required = false, name = "direction")
         directions: List<String> = emptyList(),
-    ): ResponseEntity<Page<ProductResponse>> {
+    ): ResponseEntity<Page<ProductSummaryResponse>> {
         val sortOrders = buildSortOrders(sortBy, directions)
 
         val query =
@@ -83,7 +84,7 @@ class ProductController(
             )
 
         val result = productService.findPage(query)
-        val responsePage = result.toResponse()
+        val responsePage = result.toSummaryResponsePage()
         return ResponseEntity.ok(responsePage)
     }
 }

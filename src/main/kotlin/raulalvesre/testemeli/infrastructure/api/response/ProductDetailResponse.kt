@@ -3,7 +3,7 @@ package raulalvesre.testemeli.infrastructure.api.response
 import raulalvesre.testemeli.domain.enums.ProductCondition
 import java.math.BigDecimal
 
-data class ProductResponse(
+data class ProductDetailResponse(
     val id: Long,
     val title: String,
     val description: String,

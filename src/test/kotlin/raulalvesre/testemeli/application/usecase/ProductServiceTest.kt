@@ -14,7 +14,6 @@ import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.exception.ProductNotFoundException
 import raulalvesre.testemeli.domain.repository.ProductRepository
-import raulalvesre.testemeli.domain.specification.ProductTestFixtures.buildProduct
 
 class ProductServiceTest {
     private val maxBatchSize = 50
