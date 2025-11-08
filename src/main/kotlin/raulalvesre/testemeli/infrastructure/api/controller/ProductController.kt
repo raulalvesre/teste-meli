@@ -47,7 +47,9 @@ class ProductController(
         ],
     )
     @GetMapping("/batch")
-    fun findByIds(ids: List<Long>): ResponseEntity<List<ProductDetailResponse>> {
+    fun findByIds(
+        @RequestParam(name = "ids") ids: List<Long>,
+    ): ResponseEntity<List<ProductDetailResponse>> {
         val result = productService.findByIds(ids)
         val responsePage = result.toDetailResponseList()
         return ResponseEntity.ok(responsePage)
@@ -66,13 +68,23 @@ class ProductController(
     @GetMapping
     fun findPage(
         @ParameterObject filter: ProductFilterRequest,
-        @RequestParam(defaultValue = "0") page: Int,
-        @RequestParam(defaultValue = "10") size: Int,
+        @RequestParam(defaultValue = "0")
+        page: Int,
+        @RequestParam(defaultValue = "10")
+        size: Int,
         @RequestParam(required = false, name = "sortBy")
         sortBy: List<String> = emptyList(),
         @RequestParam(required = false, name = "direction")
         directions: List<String> = emptyList(),
     ): ResponseEntity<Page<ProductSummaryResponse>> {
+        if (page < 0) {
+            throw IllegalArgumentException("Invalid page param. Page should not be negative.")
+        }
+
+        if (size <= 0) {
+            throw IllegalArgumentException("Invalid size param. Size should be greater than zero.")
+        }
+
         val sortOrders = buildSortOrders(sortBy, directions)
 
         val query =

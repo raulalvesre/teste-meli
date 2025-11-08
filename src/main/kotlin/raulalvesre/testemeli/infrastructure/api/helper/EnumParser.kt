@@ -10,9 +10,9 @@ fun parseProductCondition(value: String): ProductCondition {
             .entries
             .firstOrNull { it.name.equals(value, ignoreCase = true) }
 
-    return condition?: throw IllegalArgumentException(
+    return condition ?: throw IllegalArgumentException(
         "Invalid product condition: '$value'. " +
-                "Available options: ${ProductCondition.entries.joinToString { it.name.lowercase() }}"
+            "Available options: ${ProductCondition.entries.joinToString { it.name.lowercase() }}",
     )
 }
 
@@ -24,7 +24,7 @@ fun parseProductSortField(value: String?): ProductSortField {
 
     return sortField ?: throw IllegalArgumentException(
         "Invalid sort field: '$value'. " +
-                "Available fields: ${ProductSortField.entries.joinToString { it.name.lowercase() }}"
+            "Available fields: ${ProductSortField.entries.joinToString { it.name.lowercase() }}",
     )
 }
 
@@ -34,8 +34,8 @@ fun parseSortDirection(value: String): SortDirection {
             .entries
             .firstOrNull { it.name.equals(value, ignoreCase = true) }
 
-    return condition?: throw IllegalArgumentException(
+    return condition ?: throw IllegalArgumentException(
         "Invalid sort direction: '$value'. " +
-                "Must be: ${SortDirection.entries.joinToString { it.name.lowercase() }}"
+            "Must be: ${SortDirection.entries.joinToString { it.name.lowercase() }}",
     )
 }
