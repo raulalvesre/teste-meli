@@ -8,12 +8,12 @@ class NameSpecification(private val name: String?) : Specification<Product> {
     override fun isSatisfiedBy(item: Product): Boolean = name == null || item.name.contains(name.trim(), ignoreCase = true)
 }
 
-class CategorySpecification(private val category: String?) : Specification<Product> {
-    override fun isSatisfiedBy(item: Product): Boolean = category == null || item.category.contains(category.trim(), ignoreCase = true)
-}
-
 class BrandSpecification(private val brand: String?) : Specification<Product> {
     override fun isSatisfiedBy(item: Product): Boolean = brand == null || item.brand?.contains(brand.trim(), ignoreCase = true) == true
+}
+
+class CategorySpecification(private val category: String?) : Specification<Product> {
+    override fun isSatisfiedBy(item: Product): Boolean = category == null || item.category.contains(category.trim(), ignoreCase = true)
 }
 
 class ConditionSpecification(private val condition: ProductCondition?) : Specification<Product> {

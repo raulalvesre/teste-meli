@@ -34,6 +34,21 @@ class JsonProductRepositoryTest {
     }
 
     @Test
+    fun `findByIds return empty list when no product with with specific ids exist`() {
+        val result = repository.findByIds(listOf(9999L, 888L))
+
+        assertEquals(0, result.size)
+    }
+
+    @Test
+    fun `findByIds returns only products with specific ids`() {
+        val result = repository.findByIds(listOf(1L, 2L))
+
+        assertEquals(2, result.size)
+        assertEquals(listOf(1L, 2L), result.map { it.id })
+    }
+
+    @Test
     fun `findPage with empty filter returns all products in first page`() {
         val query =
             ProductSearchQuery(

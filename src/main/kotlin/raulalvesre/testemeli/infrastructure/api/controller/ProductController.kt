@@ -15,7 +15,8 @@ import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.infrastructure.api.helper.buildSortOrders
 import raulalvesre.testemeli.infrastructure.api.mapper.ProductFilterMapper.toApplicationFilter
-import raulalvesre.testemeli.infrastructure.api.mapper.toResponsePage
+import raulalvesre.testemeli.infrastructure.api.mapper.toResponse
+import raulalvesre.testemeli.infrastructure.api.mapper.toResponseList
 import raulalvesre.testemeli.infrastructure.api.request.ProductFilterRequest
 import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
 
@@ -26,23 +27,38 @@ class ProductController(
 ) {
 
     @Operation(summary = "Buscar produto por ID")
-    @GetMapping("/{productId}")
+    @GetMapping("/{id}")
     fun findById(
-        @PathVariable productId: Long,
+        @PathVariable id: Long,
     ): ResponseEntity<ProductResponse> {
-        val product = productService.findById(productId)
-        return ResponseEntity.ok(product.toResponsePage())
+        val product = productService.findById(id)
+        return ResponseEntity.ok(product.toResponse())
     }
 
     @Operation(
-        summary = "Buscar produtos paginados",
-        description = "Retorna uma lista paginada de produtos com filtros"
+        summary = "Buscar produtos por IDs",
     )
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
-            ApiResponse(responseCode = "400", description = "Parâmetros inválidos")
-        ]
+        ],
+    )
+    @GetMapping("/batch")
+    fun findByIds(ids: List<Long>): ResponseEntity<List<ProductResponse>> {
+        val result = productService.findByIds(ids)
+        val responsePage = result.toResponseList()
+        return ResponseEntity.ok(responsePage)
+    }
+
+    @Operation(
+        summary = "Buscar produtos paginados",
+        description = "Retorna uma lista paginada de produtos com filtros",
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
+            ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
+        ],
     )
     @GetMapping
     fun findPage(
@@ -65,7 +81,7 @@ class ProductController(
             )
 
         val result = productService.findPage(query)
-        val responsePage = result.toResponsePage()
+        val responsePage = result.toResponse()
         return ResponseEntity.ok(responsePage)
     }
 }

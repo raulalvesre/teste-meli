@@ -24,7 +24,6 @@ import raulalvesre.testemeli.domain.specification.Specification
 class JsonProductRepository(
     private val products: List<Product> = emptyList(),
 ) : ProductRepository {
-
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     override fun findById(id: Long): Product? {
@@ -35,6 +34,18 @@ class JsonProductRepository(
             return products
         } catch (e: Exception) {
             logger.error("c=JsonProductRepository m=findById s=ERROR message=${e.message}", e)
+            throw e
+        }
+    }
+
+    override fun findByIds(ids: List<Long>): List<Product> {
+        try {
+            logger.info("c=JsonProductRepository m=findByIds s=START")
+            val products = products.filter { it.id in ids }
+            logger.info("c=JsonProductRepository m=findByIds s=DONE")
+            return products
+        } catch (e: Exception) {
+            logger.error("c=JsonProductRepository m=findByIds s=ERROR message=${e.message}", e)
             throw e
         }
     }

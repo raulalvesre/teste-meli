@@ -51,16 +51,16 @@ O foco principal é:
 
 ### 🕵️ Buscar Produto
 ````text
-GET /v1/{productId}
+GET /v1/{id}
 ````
 
 Busca um produto pelo seu identificador único.
 
 ### Parâmetros de path
 
-| Nome        | Tipo | Obrigatório | Descrição                       |
-|-------------|------|-------------|---------------------------------|
-| `productId` | Long | sim         | ID do produto a ser consultado. |
+| Nome | Tipo | Obrigatório | Descrição                       |
+|------|------|-------------|---------------------------------|
+| `id` | Long | sim         | ID do produto a ser consultado. |
 
 ### Respostas
 
@@ -69,7 +69,41 @@ Busca um produto pelo seu identificador único.
 | `200`  | Produto encontrado com sucesso.          |
 | `404`  | Nenhum produto encontrado com esse ID.   |
 
-### 🎯 Buscar Produtos
+### 🎯 Buscar Produtos Específicos
+
+````text
+GET /v1/batch
+````
+
+Retorna uma lista com produtos solicitados de produtos.
+
+
+### Parâmetros de query
+
+| Nome  | Tipo       | Obrigatório | Descrição                       |
+|-------|------------|-------------|---------------------------------|
+| `ids` | List<Long> | sim         | ID do produto a ser consultado. |
+
+### Regras:
+
+#### Limite de 50 IDs por requisição
+
+- Esse endpoint aceita no máximo 50 IDs em uma única chamada.
+- Esse limite existe por alguns motivos:
+  - **Performance e latência:** buscar muitos registros de uma vez aumenta o tempo de resposta da API e pode degradar a experiência do usuário.
+  - **Uso eficiente de recursos:** requisições com listas muito grandes pressionam o banco de dados (CPU, memória, I/O) e podem impactar outras operações do sistema.
+  - **Proteção contra abusos:** o limite ajuda a evitar chamadas acidentais ou mal-formadas com listas enormes de IDs, que poderiam causar lentidão ou indisponibilidade.
+  - **Simplicidade de uso:** 50 itens é um tamanho suficiente para a maioria dos cenários de consulta em lote. Casos que precisem de mais dados podem ser tratados com paginação ou múltiplas chamadas à API.
+
+Caso seja necessário consultar mais de 50 produtos, o cliente deve dividir a lista em lotes de até 50 IDs e chamar o método múltiplas vezes.
+
+**Exemplo:**
+
+```text
+GET /v1/batch?ids=1,ids=2
+````
+
+### 🎯 Buscar Página de  Produtos
 
 ````text
 GET /v1/products
@@ -113,7 +147,7 @@ A ordenação é feita usando dois arrays paralelos:
 | `sortBy`    | List\<String> | não         | Lista de campos para ordenação, em ordem de prioridade (ex.: `NAME`, `PRICE`, `RATING`, `BRAND`). |
 | `direction` | List\<String> | não         | Direção da ordenação para cada campo (`ASC` ou `DESC`), casada **por índice** com `sortBy`. |
 
-**Regras:**
+### Regras:
 
 - Caso`sortBy` tenha mais elementos do que `direction`, os campos excedentes em sortBy serão ordenados com direção padrão ASC.
 

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: testemeli
+
+app:
+  products:
+    batch:
+      max-products: 50

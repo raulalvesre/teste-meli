@@ -4,7 +4,7 @@ import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
 
-fun Product.toResponsePage(): ProductResponse {
+fun Product.toResponse(): ProductResponse {
     return ProductResponse(
         id = id,
         title = name,
@@ -22,9 +22,13 @@ fun Product.toResponsePage(): ProductResponse {
     )
 }
 
-fun Page<Product>.toResponsePage(): Page<ProductResponse> {
+fun List<Product>.toResponseList(): List<ProductResponse> {
+    return this.map { it.toResponse() }
+}
+
+fun Page<Product>.toResponse(): Page<ProductResponse> {
     return Page(
-        items = items.map { it.toResponsePage() },
+        items = items.map { it.toResponse() },
         page = page,
         size = size,
         totalItems = totalItems,

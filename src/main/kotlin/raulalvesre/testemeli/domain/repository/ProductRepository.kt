@@ -8,4 +8,6 @@ interface ProductRepository {
     fun findById(id: Long): Product?
 
     fun findPage(productSearchQuery: ProductSearchQuery): Page<Product>
+
+    fun findByIds(ids: List<Long>): List<Product>
 }
