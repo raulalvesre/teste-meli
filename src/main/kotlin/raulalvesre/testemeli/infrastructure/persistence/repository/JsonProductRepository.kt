@@ -30,7 +30,9 @@ class JsonProductRepository(
     override fun findById(id: Long): Product? {
         try {
             logger.info("c=JsonProductRepository m=findById s=START")
-            return products.firstOrNull { it.id == id }
+            val products = products.firstOrNull { it.id == id }
+            logger.info("c=JsonProductRepository m=findById s=DONE")
+            return products
         } catch (e: Exception) {
             logger.error("c=JsonProductRepository m=findById s=ERROR message=${e.message}", e)
             throw e
@@ -57,6 +59,8 @@ class JsonProductRepository(
                 } else {
                     emptyList()
                 }
+
+            logger.info("c=JsonProductRepository m=findPage s=DONE")
 
             return Page(
                 items = pageItems,

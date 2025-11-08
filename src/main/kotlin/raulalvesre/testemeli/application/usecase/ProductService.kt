@@ -18,8 +18,10 @@ class ProductService(
     fun findById(productId: Long): Product {
         try {
             logger.info("c=ProductService m=findById s=START productId=$productId")
-            return productRepository.findById(productId)
+            val product = productRepository.findById(productId)
                 ?: throw ProductNotFoundException(productId)
+            logger.info("c=ProductService m=findById s=DONE productId=$productId")
+            return product
         } catch (e: Exception) {
             logger.error("c=ProductService m=findById s=ERROR productId=$productId message=${e.message}")
             throw e
@@ -29,7 +31,9 @@ class ProductService(
     fun findPage(searchQuery: ProductSearchQuery): Page<Product> {
         try {
             logger.info("c=ProductService m=findPage s=START")
-            return productRepository.findPage(searchQuery)
+            val products = productRepository.findPage(searchQuery)
+            logger.info("c=ProductService m=findPage s=DONE")
+            return products
         } catch (e: Exception) {
             logger.error("c=ProductService m=findPage s=ERROR searchQuery=$searchQuery message=${e.message}")
             throw e
