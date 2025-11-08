@@ -13,7 +13,7 @@ import raulalvesre.testemeli.domain.repository.ProductRepository
 class ProductService(
     private val productRepository: ProductRepository,
     @Value("\${app.products.batch.max-products}")
-    private val maxProducts: Int,
+    private val batchMaxProducts: Int,
 ) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
@@ -39,8 +39,8 @@ class ProductService(
                 throw IllegalArgumentException("At least one product ID required")
             }
 
-            if (ids.size > maxProducts) {
-                throw IllegalArgumentException("Cannot compare more than $maxProducts products. Requested: ${ids.size}")
+            if (ids.size > batchMaxProducts) {
+                throw IllegalArgumentException("Cannot compare more than $batchMaxProducts products. Requested: ${ids.size}")
             }
 
             val products = productRepository.findByIds(ids)

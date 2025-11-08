@@ -23,7 +23,7 @@ import raulalvesre.testemeli.infrastructure.api.response.ProductResponse
 @RestController
 @RequestMapping("/v1/products")
 class ProductController(
-    private val productService: ProductService,
+    private val productService: ProductService
 ) {
 
     @Operation(summary = "Buscar produto por ID")
@@ -37,10 +37,12 @@ class ProductController(
 
     @Operation(
         summary = "Buscar produtos por IDs",
+        description = "Permite buscar produtos em lote informando uma lista de IDs (máx. 50 por requisição)."
     )
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
+            ApiResponse(responseCode = "400", description = "Requisição inválida (lista de IDs ultrapassa o limite de 50).")
         ],
     )
     @GetMapping("/batch")
