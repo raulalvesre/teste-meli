@@ -2,14 +2,14 @@ package raulalvesre.testemeli.infrastructure.persistence.repository
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
-import raulalvesre.testemeli.application.usecase.dto.Page
-import raulalvesre.testemeli.application.usecase.dto.ProductFilter
-import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
-import raulalvesre.testemeli.application.usecase.dto.SortOrder
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.enums.ProductSortField
 import raulalvesre.testemeli.domain.enums.SortDirection
+import raulalvesre.testemeli.domain.pagination.PageResult
 import raulalvesre.testemeli.domain.repository.ProductRepository
+import raulalvesre.testemeli.domain.search.ProductFilter
+import raulalvesre.testemeli.domain.search.ProductSearchQuery
+import raulalvesre.testemeli.domain.search.SortOrder
 import raulalvesre.testemeli.domain.specification.AvailabilitySpecification
 import raulalvesre.testemeli.domain.specification.BrandSpecification
 import raulalvesre.testemeli.domain.specification.CategorySpecification
@@ -51,7 +51,7 @@ class JsonProductRepository(
         }
     }
 
-    override fun findPage(productSearchQuery: ProductSearchQuery): Page<Product> {
+    override fun findPage(productSearchQuery: ProductSearchQuery): PageResult<Product> {
         try {
             logger.info("c=JsonProductRepository m=findPage s=START")
             val specification = productSearchQuery.filter.toSpecification()
@@ -76,7 +76,7 @@ class JsonProductRepository(
 
             logger.info("c=JsonProductRepository m=findPage s=DONE")
 
-            return Page(
+            return PageResult(
                 items = pageItems,
                 page = page,
                 size = size,

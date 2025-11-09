@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import raulalvesre.testemeli.application.usecase.dto.Page
-import raulalvesre.testemeli.application.usecase.dto.ProductFilter
-import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.exception.ProductNotFoundException
+import raulalvesre.testemeli.domain.pagination.PageResult
 import raulalvesre.testemeli.domain.repository.ProductRepository
+import raulalvesre.testemeli.domain.search.ProductFilter
+import raulalvesre.testemeli.domain.search.ProductSearchQuery
 
 class ProductServiceTest {
     private val maxBatchSize = 50
@@ -90,7 +90,7 @@ class ProductServiceTest {
                 sortOrders = emptyList(),
             )
 
-        val pageResult = mockk<Page<Product>>()
+        val pageResult = mockk<PageResult<Product>>()
         every { productRepository.findPage(query) } returns pageResult
 
         val result = productService.findPage(query)

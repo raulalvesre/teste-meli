@@ -1,7 +1,7 @@
 package raulalvesre.testemeli.infrastructure.api.mapper
 
-import raulalvesre.testemeli.application.usecase.dto.Page
 import raulalvesre.testemeli.domain.entity.Product
+import raulalvesre.testemeli.domain.pagination.PageResult
 import raulalvesre.testemeli.infrastructure.api.response.ProductDetailResponse
 import raulalvesre.testemeli.infrastructure.api.response.ProductSummaryResponse
 
@@ -41,8 +41,8 @@ fun List<Product>.toDetailResponseList(): List<ProductDetailResponse> {
     return this.map { it.toDetailResponse() }
 }
 
-fun Page<Product>.toSummaryResponsePage(): Page<ProductSummaryResponse> {
-    return Page(
+fun PageResult<Product>.toSummaryResponsePage(): PageResult<ProductSummaryResponse> {
+    return PageResult(
         items = items.map { it.toSummaryResponse() },
         page = page,
         size = size,

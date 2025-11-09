@@ -1,6 +1,6 @@
 package raulalvesre.testemeli.infrastructure.api.helper
 
-import raulalvesre.testemeli.application.usecase.dto.SortOrder
+import raulalvesre.testemeli.domain.search.SortOrder
 
 fun buildSortOrders(
     sortBy: List<String>?,

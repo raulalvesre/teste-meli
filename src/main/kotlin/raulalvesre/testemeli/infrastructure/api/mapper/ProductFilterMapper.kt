@@ -1,6 +1,6 @@
 package raulalvesre.testemeli.infrastructure.api.mapper
 
-import raulalvesre.testemeli.application.usecase.dto.ProductFilter
+import raulalvesre.testemeli.domain.search.ProductFilter
 import raulalvesre.testemeli.infrastructure.api.helper.parseProductCondition
 import raulalvesre.testemeli.infrastructure.api.request.ProductFilterRequest
 

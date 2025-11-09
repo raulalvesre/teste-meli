@@ -1,4 +1,4 @@
-package raulalvesre.testemeli.application.usecase.dto
+package raulalvesre.testemeli.domain.search
 
 import raulalvesre.testemeli.domain.enums.ProductSortField
 import raulalvesre.testemeli.domain.enums.SortDirection

@@ -77,6 +77,11 @@ GET /v1/batch
 
 Retorna uma lista com produtos solicitados de produtos.
 
+**Uso para Comparação:**
+
+Este endpoint é ideal para recuperar múltiplos produtos para comparação lado a lado.
+Use para construir tabelas de comparação na interface do usuário.
+
 
 ### Parâmetros de query
 
@@ -106,7 +111,7 @@ GET /v1/batch?ids=1,ids=2
 ### 🎯 Buscar Página de  Produtos
 
 ````text
-GET /v1/products
+GET /v1/products/page
 ````
 
 Retorna uma lista paginada de produtos filtrados e ordenados de acordo com os parâmetros de consulta.
@@ -115,19 +120,19 @@ Retorna uma lista paginada de produtos filtrados e ordenados de acordo com os pa
 
 #### Filtros
 
-| Nome              | Tipo       | Obrigatório | Descrição                                                                         |
-|-------------------|------------|-------------|-----------------------------------------------------------------------------------|
-| `name`            | String     | não         | Filtra produtos cujo **nome contenha** o texto informado (case-insensitive).      |
-| `category`        | String     | não         | Filtra produtos cujo **categoria contenha** o texto informado (case-insensitive). |
-| `brand`           | String     | não         | Filtra produtos cujo **marca contenha** o texto informado (case-insensitive).     |
-| `condition`       | String     | não         | Filtra pela condição do produto (ex.: `NEW`, `USED`).                             |
-| `minPrice`        | BigDecimal | não         | Preço mínimo (inclusivo).                                                         |
-| `maxPrice`        | BigDecimal | não         | Preço máximo (inclusivo).                                                         |
-| `minRating`       | Long       | não         | Nota mínima (inclusivo).                                                          |
-| `maxRating`       | Long       | não         | Nota máxima (inclusivo).                                                          |
-| `hasFreeShipping` | Boolean    | não         | Se `true`, retorna apenas produtos com frete grátis.                              |
-| `isAvailable`     | Boolean    | não         | Se `true`, retorna apenas produtos disponíveis.                                   |
-
+| Nome              | Tipo                | Obrigatório | Descrição                                                                         |
+|-------------------|---------------------|-------------|-----------------------------------------------------------------------------------|
+| `name`            | String              | não         | Filtra produtos cujo **nome contenha** o texto informado (case-insensitive).      |
+| `category`        | String              | não         | Filtra produtos cujo **categoria contenha** o texto informado (case-insensitive). |
+| `brand`           | String              | não         | Filtra produtos cujo **marca contenha** o texto informado (case-insensitive).     |
+| `condition`       | String              | não         | Filtra pela condição do produto (ex.: `NEW`, `USED`).                             |
+| `minPrice`        | BigDecimal          | não         | Preço mínimo (inclusivo).                                                         |
+| `maxPrice`        | BigDecimal          | não         | Preço máximo (inclusivo).                                                         |
+| `minRating`       | Long                | não         | Nota mínima (inclusivo).                                                          |
+| `maxRating`       | Long                | não         | Nota máxima (inclusivo).                                                          |
+| `hasFreeShipping` | Boolean             | não         | Se `true`, retorna apenas produtos com frete grátis.                              |
+| `isAvailable`     | Boolean             | não         | Se `true`, retorna apenas produtos disponíveis.                                   |
+| `specifications`	 | Map<String, String> | 	não        | Filtra por especificações do produto usando contains case-insensitive.            |
 
 Todos os filtros são opcionais. Quando um parâmetro não é enviado, ele simplesmente não é considerado no filtro.
 
@@ -150,12 +155,18 @@ A ordenação é feita usando dois arrays paralelos:
 ### Regras:
 
 - Caso`sortBy` tenha mais elementos do que `direction`, os campos excedentes em sortBy serão ordenados com direção padrão ASC.
+- Limite de até 50 produtos por requisição, pelos mesmos motivos já descritos para o endpoint de busca em batch.
 
 **Exemplo:**
 
 ```text
-GET /v1/products?name=iphone&minPrice=2000&sortBy=PRICE&sortBy=RATING&direction=DESC&direction=ASC
+GET /v1/products/page?name=iphone&minPrice=2000&sortBy=PRICE&sortBy=RATING&direction=DESC&direction=ASC
 ````
+
+Buscar smartphones com características específicas
+```text
+GET /v1/products?specifications[storage]=128GB&specifications[color]=black&specifications[5G]=true
+```
 
 Esse request vai:
 
@@ -252,4 +263,15 @@ Recomendo utilizar o swagger para explorar e interagir com a API:
 http://localhost:8080/swagger-ui/index.html
 
 
-### Prompts
+### 🤖 Prompts Utilizados
+
+Durante o desenvolvimento deste projeto, utilizei IA (ChatGPT) como ferramenta de apoio para discutir decisões de arquitetura, performance e testes. Abaixo alguns dos principais prompts utilizados:
+
+- **Geração de dados de mock**
+    - *"Crie um JSON de produtos seguindo esta data class \***dto de Product\***
+- **Refatoração de filtros com Specification Pattern**
+    - *"Tenho um `if` gigantesco aplicando vários filtros em uma lista de produtos. Consigo usar o design pattern de Specification para deixar esse código mais limpo e flexível? Como ficaria a estrutura das Specifications e a composição entre elas nesse caso?"*
+- **Apoio em testes unitários (Specifications)**
+    - *"Me ajude a escrever os testes das Specifications: quais seriam bons cenários para testar esta Specification: \***código da specification\*** ?"*
+- **Estrutura de pacotes / arquitetura**
+    - *"Me ajude a criar uma estrutura de pacotes que siga princípios de DDD e Clean Architecture para este projeto."*

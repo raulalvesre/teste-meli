@@ -1,4 +1,4 @@
-package raulalvesre.testemeli.application.usecase.dto
+package raulalvesre.testemeli.domain.search
 
 import raulalvesre.testemeli.domain.enums.ProductCondition
 import java.math.BigDecimal

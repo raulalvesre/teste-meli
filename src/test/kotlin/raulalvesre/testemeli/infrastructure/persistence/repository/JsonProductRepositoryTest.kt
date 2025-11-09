@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
-import raulalvesre.testemeli.application.usecase.dto.ProductFilter
-import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
-import raulalvesre.testemeli.application.usecase.dto.SortOrder
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.enums.ProductCondition
 import raulalvesre.testemeli.domain.enums.ProductSortField
 import raulalvesre.testemeli.domain.enums.SortDirection
+import raulalvesre.testemeli.domain.search.ProductFilter
+import raulalvesre.testemeli.domain.search.ProductSearchQuery
+import raulalvesre.testemeli.domain.search.SortOrder
 import java.math.BigDecimal
 
 class JsonProductRepositoryTest {

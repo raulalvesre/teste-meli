@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import raulalvesre.testemeli.application.usecase.ProductService
-import raulalvesre.testemeli.application.usecase.dto.Page
-import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
+import raulalvesre.testemeli.domain.pagination.PageResult
+import raulalvesre.testemeli.domain.search.ProductSearchQuery
 import raulalvesre.testemeli.infrastructure.api.helper.buildSortOrders
 import raulalvesre.testemeli.infrastructure.api.mapper.ProductFilterMapper.toApplicationFilter
 import raulalvesre.testemeli.infrastructure.api.mapper.toDetailResponse
@@ -41,7 +41,13 @@ class ProductController(
 
     @Operation(
         summary = "Buscar produtos por IDs",
-        description = "Permite buscar produtos em lote informando uma lista de IDs (máx. 50 por requisição).",
+        description = """
+            Permite buscar produtos em lote informando uma lista de IDs (máx. 50 por requisição).
+            
+            **Uso para Comparação:** 
+            Este endpoint é ideal para recuperar múltiplos produtos para comparação lado a lado.
+            Use para construir tabelas de comparação na interface do usuário.
+        """,
     )
     @ApiResponses(
         value = [
@@ -68,7 +74,7 @@ class ProductController(
             ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
         ],
     )
-    @GetMapping
+    @GetMapping("/page")
     fun findPage(
         @ParameterObject filter: ProductFilterRequest,
         @RequestParam page: Int = 0,
@@ -101,7 +107,7 @@ class ProductController(
         )
         @RequestParam(required = false, name = "direction")
         directions: List<String> = emptyList(),
-    ): ResponseEntity<Page<ProductSummaryResponse>> {
+    ): ResponseEntity<PageResult<ProductSummaryResponse>> {
         if (page < 0) {
             throw IllegalArgumentException("Invalid page param. Page should not be negative.")
         }

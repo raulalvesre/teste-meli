@@ -3,9 +3,9 @@ package raulalvesre.testemeli.infrastructure.api.helper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import raulalvesre.testemeli.application.usecase.dto.SortOrder
 import raulalvesre.testemeli.domain.enums.ProductSortField
 import raulalvesre.testemeli.domain.enums.SortDirection
+import raulalvesre.testemeli.domain.search.SortOrder
 
 class BuildSortOrdersTest {
     @Test

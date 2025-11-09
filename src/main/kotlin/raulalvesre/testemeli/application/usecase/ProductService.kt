@@ -3,11 +3,11 @@ package raulalvesre.testemeli.application.usecase
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import raulalvesre.testemeli.application.usecase.dto.Page
-import raulalvesre.testemeli.application.usecase.dto.ProductSearchQuery
 import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.exception.ProductNotFoundException
+import raulalvesre.testemeli.domain.pagination.PageResult
 import raulalvesre.testemeli.domain.repository.ProductRepository
+import raulalvesre.testemeli.domain.search.ProductSearchQuery
 
 /**
  * Application service responsável por buscar produtos.
@@ -16,6 +16,9 @@ import raulalvesre.testemeli.domain.repository.ProductRepository
  * - findById: lança [ProductNotFoundException] se o produto não existir.
  * - findByIds: exige pelo menos um ID e limita a quantidade máxima de IDs por chamada
  *   de acordo com a propriedade `app.products.batch.max-products`.
+ * - findPage: valida que o tamanho da página (size) não excede o limite máximo configurado
+ *   em `app.products.batch.max-products` e aplica filtros e ordenação conforme os parâmetros
+ *   da consulta.
  */
 @Service
 class ProductService(
@@ -60,9 +63,16 @@ class ProductService(
         }
     }
 
-    fun findPage(searchQuery: ProductSearchQuery): Page<Product> {
+    fun findPage(searchQuery: ProductSearchQuery): PageResult<Product> {
         try {
             logger.info("c=ProductService m=findPage s=START")
+
+            if (searchQuery.size > batchMaxProducts) {
+                throw IllegalArgumentException(
+                    "Cannot return a page with more than $batchMaxProducts products. Requested: ${searchQuery.size}",
+                )
+            }
+
             val products = productRepository.findPage(searchQuery)
             logger.info("c=ProductService m=findPage s=DONE")
             return products

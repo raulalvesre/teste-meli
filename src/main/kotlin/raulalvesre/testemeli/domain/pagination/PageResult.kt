@@ -1,6 +1,6 @@
-package raulalvesre.testemeli.application.usecase.dto
+package raulalvesre.testemeli.domain.pagination
 
-data class Page<T>(
+data class PageResult<T>(
     val items: List<T>,
     val page: Int,
     val size: Int,
@@ -11,7 +11,7 @@ data class Page<T>(
             if (size == 0) {
                 0
             } else {
-                ((totalItems + size - 1) / size).toInt()
+                ((totalItems + size - 1) / size)
             }
 
     val isFirst: Boolean

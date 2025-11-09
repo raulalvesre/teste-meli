@@ -1,4 +1,4 @@
-package raulalvesre.testemeli.application.usecase.dto
+package raulalvesre.testemeli.domain.search
 
 data class ProductSearchQuery(
     val filter: ProductFilter,
