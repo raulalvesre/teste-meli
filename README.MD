@@ -16,6 +16,12 @@ Com essa combinação, a API fornece tanto:
 - os dados necessários para **descobrir** produtos (busca paginada), quanto
 - os dados necessários para **comparar** produtos específicos (busca em lote por IDs).
 
+### 🧱 Tecnologias
+
+- Kotlin 1.9.25
+- Java 17
+- Spring Boot 3.5.7
+
 ### Estrutura do Projeto
 
 ```cmd
