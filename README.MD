@@ -1,12 +1,20 @@
 ## 🛍️ Teste Mercado Livre
 
-Este projeto implementa uma API de busca e comparação de produtos como parte de um teste técnico do Mercado Livre.
+O enunciado do teste pede:
 
-O foco principal é:
+> “Construir uma API backend simplificada que forneça detalhes de produtos para uso em uma funcionalidade de comparação de itens. Sua implementação deve seguir boas práticas estabelecidas de backend, fornecendo endpoints claros e eficientes para recuperar os dados necessários para comparações de produtos.”
 
-- Implementar filtros flexíveis para busca de produtos.
-- Suportar ordenação por múltiplos campos (**multi-sort**).
-- Organizar o código seguindo princípios de **DDD** e separação de camadas (domínio, aplicação e infraestrutura).
+Neste projeto, essa necessidade é atendida pelos seguintes endpoints:
+
+- `GET /v1/products/{id}` – obtém os detalhes de um produto específico, útil para buscar um item individual que o usuário adicionou à comparação.
+- `GET /v1/products/batch` – retorna detalhes de **vários produtos de uma vez**, a partir de uma lista de IDs.  
+  É o endpoint mais indicado para montar uma tabela de comparação lado a lado no frontend.
+- `GET /v1/products/page` – permite **buscar e paginar produtos com filtros e ordenação** (multi-sort).  
+  Pode ser usado para a etapa em que o usuário está explorando/filtrando produtos antes de selecionar quais serão comparados.
+
+Com essa combinação, a API fornece tanto:
+- os dados necessários para **descobrir** produtos (busca paginada), quanto
+- os dados necessários para **comparar** produtos específicos (busca em lote por IDs).
 
 ### Estrutura do Projeto
 
@@ -51,7 +59,7 @@ O foco principal é:
 
 ### 🕵️ Buscar Produto
 ````text
-GET /v1/{id}
+GET /v1/products/{id}
 ````
 
 Busca um produto pelo seu identificador único.
@@ -72,7 +80,7 @@ Busca um produto pelo seu identificador único.
 ### 🎯 Buscar Produtos Específicos
 
 ````text
-GET /v1/batch
+GET /v1/products/batch
 ````
 
 Retorna uma lista com produtos solicitados de produtos.
@@ -105,7 +113,7 @@ Caso seja necessário consultar mais de 50 produtos, o cliente deve dividir a li
 **Exemplo:**
 
 ```text
-GET /v1/batch?ids=1,ids=2
+GET /v1/products/batch?ids=1,ids=2
 ````
 
 ### 🎯 Buscar Página de  Produtos
@@ -165,7 +173,7 @@ GET /v1/products/page?name=iphone&minPrice=2000&sortBy=PRICE&sortBy=RATING&direc
 
 Buscar smartphones com características específicas
 ```text
-GET /v1/products?specifications[storage]=128GB&specifications[color]=black&specifications[5G]=true
+GET /v1/products/page?specifications[storage]=128GB&specifications[color]=black&specifications[5G]=true
 ```
 
 Esse request vai:
@@ -267,11 +275,12 @@ http://localhost:8080/swagger-ui/index.html
 
 Durante o desenvolvimento deste projeto, utilizei IA (ChatGPT) como ferramenta de apoio para discutir decisões de arquitetura, performance e testes. Abaixo alguns dos principais prompts utilizados:
 
+- **Estrutura de pacotes / arquitetura**
+    - *"Me ajude a criar uma estrutura de pacotes que siga princípios de DDD e Clean Architecture para este projeto."*
 - **Geração de dados de mock**
     - *"Crie um JSON de produtos seguindo esta data class \***dto de Product\***
 - **Refatoração de filtros com Specification Pattern**
     - *"Tenho um `if` gigantesco aplicando vários filtros em uma lista de produtos. Consigo usar o design pattern de Specification para deixar esse código mais limpo e flexível? Como ficaria a estrutura das Specifications e a composição entre elas nesse caso?"*
 - **Apoio em testes unitários (Specifications)**
     - *"Me ajude a escrever os testes das Specifications: quais seriam bons cenários para testar esta Specification: \***código da specification\*** ?"*
-- **Estrutura de pacotes / arquitetura**
-    - *"Me ajude a criar uma estrutura de pacotes que siga princípios de DDD e Clean Architecture para este projeto."*
+
