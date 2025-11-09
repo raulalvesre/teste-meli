@@ -19,6 +19,7 @@ import raulalvesre.testemeli.domain.specification.NameSpecification
 import raulalvesre.testemeli.domain.specification.PriceRangeSpecification
 import raulalvesre.testemeli.domain.specification.RatingRangeSpecification
 import raulalvesre.testemeli.domain.specification.Specification
+import raulalvesre.testemeli.domain.specification.SpecificationsSpecification
 
 @Repository
 class JsonProductRepository(
@@ -28,24 +29,24 @@ class JsonProductRepository(
 
     override fun findById(id: Long): Product? {
         try {
-            logger.info("c=JsonProductRepository m=findById s=START")
+            logger.info("c=JsonProductRepository m=findById s=START productId=$id")
             val products = products.firstOrNull { it.id == id }
             logger.info("c=JsonProductRepository m=findById s=DONE")
             return products
         } catch (e: Exception) {
-            logger.error("c=JsonProductRepository m=findById s=ERROR message=${e.message}", e)
+            logger.error("c=JsonProductRepository m=findById s=ERROR productId=$id message=${e.message}", e)
             throw e
         }
     }
 
     override fun findByIds(ids: List<Long>): List<Product> {
         try {
-            logger.info("c=JsonProductRepository m=findByIds s=START")
+            logger.info("c=JsonProductRepository m=findByIds s=START productIds=$ids")
             val products = products.filter { it.id in ids }
             logger.info("c=JsonProductRepository m=findByIds s=DONE")
             return products
         } catch (e: Exception) {
-            logger.error("c=JsonProductRepository m=findByIds s=ERROR message=${e.message}", e)
+            logger.error("c=JsonProductRepository m=findByIds s=ERROR productIds=$ids message=${e.message}", e)
             throw e
         }
     }
@@ -62,8 +63,10 @@ class JsonProductRepository(
             val page = productSearchQuery.page
             val size = productSearchQuery.size
 
+            // Calculate pagination bounds - ensure we don't exceed list boundaries
             val fromIndex = (page * size).coerceAtMost(totalItems)
             val toIndex = (fromIndex + size).coerceAtMost(totalItems)
+
             val pageItems =
                 if (fromIndex <= toIndex) {
                     sortedFilteredProducts.subList(fromIndex, toIndex)
@@ -129,11 +132,15 @@ class JsonProductRepository(
         return base
     }
 
+    // Constrói uma única especificação composta encadeando cada filtro opcional com AND lógico.
+    // Cada especificação lida com valores nulos, então filtros ausentes atuam como no-ops e
+    // mantêm a legibilidade da combinação declarada aqui.
     private fun ProductFilter.toSpecification(): Specification<Product> {
         return NameSpecification(name)
             .and(CategorySpecification(category))
             .and(BrandSpecification(brand))
             .and(ConditionSpecification(condition))
+            .and(SpecificationsSpecification(specifications))
             .and(PriceRangeSpecification(minPrice, maxPrice))
             .and(RatingRangeSpecification(minRating, maxRating))
             .and(FreeShippingSpecification(hasFreeShipping))

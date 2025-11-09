@@ -7,6 +7,7 @@ data class ProductFilterRequest(
     val category: String? = null,
     val brand: String? = null,
     val condition: String? = null,
+    val specifications: Map<String, String>? = null,
     val minPrice: BigDecimal? = null,
     val maxPrice: BigDecimal? = null,
     val minRating: Double? = null,

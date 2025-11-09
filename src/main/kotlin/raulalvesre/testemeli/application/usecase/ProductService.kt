@@ -9,6 +9,14 @@ import raulalvesre.testemeli.domain.entity.Product
 import raulalvesre.testemeli.domain.exception.ProductNotFoundException
 import raulalvesre.testemeli.domain.repository.ProductRepository
 
+/**
+ * Application service responsável por buscar produtos.
+ *
+ * Regras:
+ * - findById: lança [ProductNotFoundException] se o produto não existir.
+ * - findByIds: exige pelo menos um ID e limita a quantidade máxima de IDs por chamada
+ *   de acordo com a propriedade `app.products.batch.max-products`.
+ */
 @Service
 class ProductService(
     private val productRepository: ProductRepository,

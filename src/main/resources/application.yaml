@@ -6,3 +6,7 @@ app:
   products:
     batch:
       max-products: 50
+
+server:
+  tomcat:
+    relaxed-query-chars: '[,]'

@@ -16,11 +16,16 @@ class CategorySpecification(private val category: String?) : Specification<Produ
     override fun isSatisfiedBy(item: Product): Boolean = category == null || item.category.contains(category.trim(), ignoreCase = true)
 }
 
-class SpecificationSpecifications(private val requiredSpecs: Map<String, String>) : Specification<Product> {
+/**
+ * Garante que o produto possua todos os pares chave/valor informados em [requiredSpecs]
+ * dentro do mapa de `specifications`, usando comparação parcial (contains, case-insensitive).
+ */
+class SpecificationsSpecification(private val requiredSpecs: Map<String, String>?) : Specification<Product> {
     override fun isSatisfiedBy(item: Product): Boolean {
-        return requiredSpecs.all { (key, expectedValue) ->
-            item.specifications[key]?.contains(expectedValue, ignoreCase = true) ?: false
-        }
+        return requiredSpecs == null ||
+            requiredSpecs.all { (key, expectedValue) ->
+                item.specifications[key]?.contains(expectedValue, ignoreCase = true) ?: false
+            }
     }
 }
 

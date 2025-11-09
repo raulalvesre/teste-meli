@@ -71,33 +71,33 @@ class ProductController(
     @GetMapping
     fun findPage(
         @ParameterObject filter: ProductFilterRequest,
-        @RequestParam(defaultValue = "0")
-        page: Int,
-        @RequestParam(defaultValue = "10")
-        size: Int,
-
+        @RequestParam page: Int = 0,
+        @RequestParam size: Int = 10,
         @Parameter(
-            description = "Sort field",
-            array = ArraySchema(
-                schema = Schema(
-                    type = "string",
-                    allowableValues = ["name", "price", "rating", "brand"],
-                    example = "name"
-                )
-            )
+            description = "Campos para ordenação dos resultados. Pode ser múltiplos campos na forma: sortBy=name&sortBy=price",
+            array =
+                ArraySchema(
+                    schema =
+                        Schema(
+                            type = "string",
+                            allowableValues = ["name", "price", "rating", "brand"],
+                            example = "name",
+                        ),
+                ),
         )
         @RequestParam(required = false, name = "sortBy")
         sortBy: List<String> = emptyList(),
-
         @Parameter(
-            description = "Sort direction",
-            array = ArraySchema (
-                schema = Schema(
-                    type = "string",
-                    allowableValues = ["asc", "desc"],
-                    example = "desc"
-                )
-            )
+            description = "Direção da ordenação para cada campo. Deve corresponder à ordem dos campos em 'sortBy'. Ex: sortBy=name&direction=asc",
+            array =
+                ArraySchema(
+                    schema =
+                        Schema(
+                            type = "string",
+                            allowableValues = ["asc", "desc"],
+                            example = "desc",
+                        ),
+                ),
         )
         @RequestParam(required = false, name = "direction")
         directions: List<String> = emptyList(),
@@ -110,6 +110,9 @@ class ProductController(
             throw IllegalArgumentException("Invalid size param. Size should be greater than zero.")
         }
 
+        // Relaciona os campos solicitados com suas respectivas direções, assumindo ASC quando o
+        // cliente omite a direção. Assim, o caso de uso recebe uma lista normalizada de SortOrder
+        // mesmo em requisições parcialmente preenchidas.
         val sortOrders = buildSortOrders(sortBy, directions)
 
         val query =

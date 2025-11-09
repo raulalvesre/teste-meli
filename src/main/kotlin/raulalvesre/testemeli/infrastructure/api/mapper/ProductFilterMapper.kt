@@ -14,6 +14,7 @@ object ProductFilterMapper {
                 this.condition?.let {
                     parseProductCondition(it.uppercase())
                 },
+            specifications = this.specifications,
             minPrice = this.minPrice,
             maxPrice = this.maxPrice,
             minRating = this.minRating,
