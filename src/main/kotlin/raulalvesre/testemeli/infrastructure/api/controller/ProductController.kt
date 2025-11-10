@@ -94,7 +94,9 @@ class ProductController(
         @RequestParam(required = false, name = "sortBy")
         sortBy: List<String> = emptyList(),
         @Parameter(
-            description = "Direção da ordenação para cada campo. Deve corresponder à ordem dos campos em 'sortBy'. Ex: sortBy=name&direction=asc",
+            description =
+                "Direção da ordenação para cada campo. Deve corresponder à ordem dos campos em 'sortBy'. " +
+                    "Ex: sortBy=name&direction=asc",
             array =
                 ArraySchema(
                     schema =
