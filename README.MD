@@ -33,12 +33,13 @@ Com essa combinação, a API fornece tanto:
         │           │
         │           ├───application
         │           │   └───usecase
-        │           │       └───dto
         │           │
         │           ├───domain
         │           │   ├───entity
         │           │   ├───enums
         │           │   ├───exception
+        │           │   ├───pagination
+        │           │   ├───search
         │           │   ├───repository
         │           │   └───specification
         │           │
@@ -48,6 +49,7 @@ Com essa combinação, a API fornece tanto:
         │               │   ├───exception
         │               │   ├───helper
         │               │   ├───mapper
+        │               │   ├───request
         │               │   └───response
         │               │
         │               └───persistence
